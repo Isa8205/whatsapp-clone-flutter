@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_lucide/flutter_lucide.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 
 // Classes used as type. Not ts but who cares
@@ -15,7 +16,7 @@ class ChatItem {
     required this.name,
     required this.message,
     required this.time,
-    required this.unread
+    required this.unread,
   });
 
   factory ChatItem.fromJson(Map<String, dynamic> json) {
@@ -44,7 +45,7 @@ class _ChatSectionState extends State<ChatSection> {
   }
 
   void fetchPosts() async {
-    final url = Uri.parse("http://192.168.88.99:3000/messages");
+    final url = Uri.parse("http://192.168.88.65:3000/messages");
     try {
       final response = await http.get(url);
       if (response.statusCode == 200) {
@@ -64,7 +65,15 @@ class _ChatSectionState extends State<ChatSection> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             for (var item in chatData)
-              ChatBarItem(name: item.name, message: item.message, time: item.time, unread: item.unread,)
+              InkWell(
+                onTap: () => context.push('/home/chats/2'),
+                child: ChatBarItem(
+                  name: item.name,
+                  message: item.message,
+                  time: item.time,
+                  unread: item.unread,
+                )
+              )
           ],
         )
     );

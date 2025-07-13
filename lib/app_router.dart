@@ -1,4 +1,5 @@
 import 'package:first_app/src/features/chats/chat_screen.dart';
+import 'package:first_app/src/features/chats/single_chat.dart';
 import 'package:first_app/src/features/home/home_screen.dart';
 import 'package:first_app/src/features/payment/payment_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +30,10 @@ final GoRouter appRouter = GoRouter(
 
       ]
     ),
+      GoRoute(
+          path: '/home/chats/:id',
+          builder: (context, state) => SingleChatView(id: int.parse(state.pathParameters['id']!))
+      ),
     GoRoute(
       path: "/payments",
       builder: (context, state) => PaymentScreen()
